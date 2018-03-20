@@ -1,8 +1,9 @@
 import javax.swing.JFrame;
 
 public class Main {
+	
 	public static void main(String[] args) {
-		JFrame myFrame = new JFrame("Bienve's Grid");
+		JFrame myFrame = new JFrame("The one and onlyx");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
 		myFrame.setSize(900, 900);
