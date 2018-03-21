@@ -170,11 +170,15 @@ public class MyMouseAdapter extends MouseAdapter {
 							} else {
 								//On the grid other than on the left column and on the top row:
 								Color newColor = null;
-								switch (generator.nextInt(1)) {
+								switch (generator.nextInt(2)) {
 									case 0:
 										newColor = Color.RED;
 										break;
+									case 1:
+										newColor = Color.WHITE;
+										break;
 										}
+								
 								myNewPanel.colorArray[myNewPanel.mouseDownGridX][myNewPanel.mouseDownGridY] = newColor;
 								myNewPanel.repaint();
 							}

@@ -9,9 +9,9 @@ public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
-	private static final int INNER_CELL_SIZE = 70;
-	private static final int TOTAL_COLUMNS = 10;
-	private static final int TOTAL_ROWS = 11;   //Last row has only one cell
+	private static final int INNER_CELL_SIZE = 50;
+	private static final int TOTAL_COLUMNS = 9;
+	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -30,10 +30,10 @@ public class MyPanel extends JPanel {
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Top row
-			colorArray[x][0] = Color.LIGHT_GRAY;
+			colorArray[x][0] = Color.WHITE;
 		}
 		for (int y = 0; y < TOTAL_ROWS; y++) {   //Left column
-			colorArray[0][y] = Color.LIGHT_GRAY;
+			colorArray[0][y] = Color.WHITE;
 		}
 		for (int x = 1; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 1; y < TOTAL_ROWS; y++) {
@@ -55,13 +55,13 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.GREEN);
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 		g.setColor(Color.BLACK);
-		for (int y = 0; y <= TOTAL_ROWS - 1; y++) {
+		for (int y = 0; y <= TOTAL_ROWS -1 ; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
 		}
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
@@ -69,12 +69,12 @@ public class MyPanel extends JPanel {
 		}
 
 		//Draw an additional cell at the bottom left
-		g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
+		//g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
 
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
-			for (int y = 0; y < TOTAL_ROWS; y++) {
-				if ((x == 0) || (y != TOTAL_ROWS - 1)) {
+			for (int y = 0; y < TOTAL_ROWS -1 ; y++) {
+				if ((x == 0) || (y != TOTAL_ROWS )) {
 					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
