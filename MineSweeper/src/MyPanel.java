@@ -4,7 +4,7 @@ import java.awt.Insets;
 import java.util.Random;
 
 import javax.swing.JPanel;
-
+//Ours
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
@@ -18,6 +18,14 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	
+	//instance variables 
+	public static final int MINES = -1;
+	public int [][] adjacentMine = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public boolean [][] hGrid = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int [][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int totalFlags = 12;
+	public boolean playerWon = false;
+	public int totalMines = 12;
 	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
