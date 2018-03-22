@@ -165,4 +165,102 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+	
+	public void NewGame() {
+		
+		boardReset();
+		randomMines();
+		
+		for(int x = 0; x <TOTAL_COLUMNS; x++) {
+		for (int y = 0; y < TOTAL_ROWS; y++) {
+		adjacentMine[x][y] = minesAround(x,y);
+		}
+		}
+		}
+	
+	public void boardReset() {
+		for(int x=0; x < TOTAL_ROWS; x++){
+		for(int y=0; y < TOTAL_COLUMNS; y++){
+		mines[x][y] = 0;
+		}
+		}
+		for(int x=0;x<TOTAL_ROWS;x++){
+		for(int y=0;y<TOTAL_COLUMNS;y++){
+		adjacentMine[x][y]=0;
+		}
+		}
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {  
+		for (int y = 0; y < TOTAL_ROWS; y++) {
+		hGrid[x][y]=true;
+		}
+		}
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {  
+		for (int y = 0; y < TOTAL_ROWS; y++) {
+		colorArray[x][y] = Color.DARK_GRAY;
+		}
+		}
+		totalMines = 12;
+		playerWon = false;
+		totalFlags = 12;
+		}
+	
+	public void randomMines() {
+		Random randomMines = new Random();
+		while(totalMines != 0){
+		int x = randomMines.nextInt(10);
+		int y = randomMines.nextInt(10);
+		if((mines[x][y] != MINES)) {
+		mines[x][y] = MINES;
+		totalMines--;
+		}
+		}
+		}
+	
+	public int minesAround(int X, int Y){
+
+		int totalMines = 0;
+		int x_Right;
+		int x_Left;
+		int y_Top;
+		int y_Bot;
+		if(X>=9){
+		x_Right = 9;
+		}
+		else{
+		x_Right=X+1;
+		}
+		if(X== 0){
+		x_Left = 0;
+		}
+		else{
+		x_Left=X-1;
+		}
+		if(Y>=9){
+		y_Bot = 9;
+		}
+		else{
+		y_Bot = Y+1;
+		}
+		if(Y==0){
+		y_Top = 0;
+		}
+		else{
+		y_Top = Y-1;
+		}
+		
+		for(int a= x_Left;a<=x_Right;a++ ){
+		for(int b = y_Top;b<=y_Bot;b++){
+		if((a==X && b == Y)|| mines[X][Y] == MINES){
+		continue;
+		}
+		else{
+		if(mines[a][b] == MINES){
+		totalMines++;
+		}
+		}
+		}
+		}
+		return totalMines;
+		}
+	
 }
