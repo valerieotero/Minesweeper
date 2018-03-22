@@ -378,7 +378,7 @@ public class MyPanel extends JPanel {
 		for(int x=0;x<TOTAL_ROWS;x++){
 			for(int y=0;y<TOTAL_COLUMNS;y++){
 				if(mines[x][y]==MINES){
-					colorArray[x][y] = Color.WHITE;
+					colorArray[x][y] = Color.BLACK;
 				}
 			}
 		}
