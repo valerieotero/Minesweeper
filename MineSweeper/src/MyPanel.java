@@ -6,12 +6,12 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-//Ours
+
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
-	private static final int GRID_X =25 ;
-	private static final int GRID_Y = 25;
-	private static final int INNER_CELL_SIZE = 50;
+	private static final int GRID_X = 40;
+	private static final int GRID_Y = 30;
+	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 10;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
 	public int x = -1;
@@ -29,7 +29,6 @@ public class MyPanel extends JPanel {
 	public boolean playerWon = false;
 	public int totalMines = 12;
 
-	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -51,6 +50,7 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 			}
 		}
+
 		//Start a New Game
 		NewGame();
 	}
@@ -94,12 +94,31 @@ public class MyPanel extends JPanel {
 				}
 			}
 		}
-	}
 
-   //This method helps to find the adjacent boxes that don't have a mine.
-   // It is partially implemented since the verify hasn't been discussed in class
-   //Verify that the coordinates in the parameters are valid.
-   //Also verifies if there are any mines around the x,y coordinate
+		//Draw the number and paints the grids that have mines around
+		Font gFont = new Font("Garamond", Font.BOLD,24);
+		g.setFont(gFont);
+		for(int x = 0; x < TOTAL_COLUMNS; x++){
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				Color numberColor = numberColor(adjacentMine[x][y]);
+				g.setColor(numberColor);
+				if(adjacentMine[x][y] > 0 && colorArray[x][y] == Color.LIGHT_GRAY && hGrid[x][y] == false && colorArray[x][y] != Color.RED) {
+					g.drawString("  "+String.valueOf(adjacentMine[x][y]),GRID_X + ((INNER_CELL_SIZE+1)*x),y1 + (2*GRID_Y) + ((INNER_CELL_SIZE)*y));
+				}
+			}
+		}
+		//Draws the number that counts the number of flag put in the board
+		Font fontFlagCounter = new Font("Garamond",Font.BOLD,12);
+		g.setFont(fontFlagCounter);
+
+		g.setColor(Color.red);
+		g.drawString("Flags:" + String.valueOf(totalFlags), getWidth()/10 + 2, getHeight() - 350);
+
+	}
+	// This method helps to find the adjacent boxes that don't have a mine.
+	// It is partially implemented since the verify hasn't been discussed in class
+	// Verify that the coordinates in the parameters are valid.
+	// Also verifies if there are any mines around the x,y coordinate
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
 		if (adjacentMine[x][y] == 0 && hGrid[x][y] && colorArray[x][y] != Color.RED){
@@ -125,6 +144,35 @@ public class MyPanel extends JPanel {
 		}
 	}
 
+	public Color numberColor(int number){
+		Color numberColor = null;
+
+		switch(number){
+
+		case 1	: 
+			numberColor = Color.BLACK;
+			break;
+		case 2	: 
+			numberColor = Color.RED;
+			break;
+		case 3	:
+			numberColor = Color.YELLOW;
+			break;
+		case 4	:
+			numberColor = Color.DARK_GRAY;
+			break;
+		case 5	: 
+			numberColor = Color.CYAN;
+			break;
+		case 6	: 
+			numberColor = Color.PINK;
+			break;
+		case 7	:
+			numberColor = Color.ORANGE;
+			break;
+		}
+		return numberColor;	
+	}
 
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -132,29 +180,25 @@ public class MyPanel extends JPanel {
 		int y1 = myInsets.top;
 		x = x - x1 - GRID_X;
 		y = y - y1 - GRID_Y;
-		
 		if (x < 0) {   //To the left of the grid
 			return -1;
-		 }
+		}
 		if (y < 0) {   //Above the grid
 			return -1;
-		 }
+		}
 		if ((x % (INNER_CELL_SIZE + 1) == 0) || (y % (INNER_CELL_SIZE + 1) == 0)) {   //Coordinate is at an edge; not inside a cell
 			return -1;
-		 }
+		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
-		 	return x;
-		 }
+			return x;
+		}
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
 			return -1;
-		 }
+		}
 		return x;
-	  }
-	
-
+	}
 	public int getGridY(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -180,8 +224,6 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-
-	
 	//method Start a New game
 	public void NewGame() {
 		boardReset();
@@ -193,8 +235,6 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-
-	
 	//method reset board and a start a new game
 	public void boardReset() {
 		for(int x=0; x < TOTAL_ROWS; x++){
@@ -217,16 +257,13 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.DARK_GRAY;
 			}
 		}
-
 		totalMines = 12;
 		playerWon = false;
 		totalFlags = 12;
-	}
-
+	}	
 	//method set random mines inside the grid
 	public void randomMines() {
 		Random randomMines = new Random();
-
 		while(totalMines != 0){
 			int x = randomMines.nextInt(10);
 			int y = randomMines.nextInt(10);
@@ -236,7 +273,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	
+//method flags
 	public void flags(int x, int y) {
 		if(colorArray[x][y] != Color.WHITE){
 			if((colorArray[x][y] == Color.RED)){
@@ -250,9 +287,7 @@ public class MyPanel extends JPanel {
 				totalFlags -- ;
 			}
 		}
-	}
-
-	
+	}	
 	//method locates and count the mines adjacent to the grid
 	public int minesAround(int X, int Y){
 
@@ -285,7 +320,6 @@ public class MyPanel extends JPanel {
 		else{
 			y_Top = Y-1;
 		}
-
 		for(int a= x_Left;a<=x_Right;a++ ){
 			for(int b = y_Top;b<=y_Bot;b++){
 				if((a==X && b == Y)|| mines[X][Y] == MINES){
@@ -300,11 +334,9 @@ public class MyPanel extends JPanel {
 		}
 		return totalMines;
 	}
-
 	// method to tell if there are 12 hidden grids in the board
 	public boolean thePlayerWon() {
 		int HiddenCell = 0;
-
 		for(int x = 0; x < TOTAL_COLUMNS; x++) {
 			for( int y = 0; y < TOTAL_ROWS; y++) {
 				if(hGrid[x][y]) {
@@ -314,10 +346,9 @@ public class MyPanel extends JPanel {
 		}
 		return(HiddenCell == 12);
 	}
-	
-	
 	//Frame for when the game ends
 	public void wonTheGame(){
+
 		mineShow();
 		repaint();
 
@@ -330,12 +361,9 @@ public class MyPanel extends JPanel {
 			System.exit(0);
 		}
 	}
-	
-	
 	public void lostTheGame(){
 		mineShow();
 		repaint();
-
 		int theButtonPressed = JOptionPane.showConfirmDialog(null, "YOU LOST!! WANT TO PLAY AGAIN? ", null, JOptionPane.YES_NO_OPTION);
 		if(theButtonPressed == JOptionPane.YES_OPTION) {
 			boardReset();
@@ -345,8 +373,6 @@ public class MyPanel extends JPanel {
 			System.exit(0);
 		}
 	}
-
-
 	//method to show the mines if the player lost
 	public void mineShow() {
 		for(int x=0;x<TOTAL_ROWS;x++){
@@ -357,8 +383,6 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-
-	
 	//method is used when the player select a grid
 	public void cellSelect(int x, int y) {
 		if((hGrid[x][y] && colorArray[x][y] != Color.RED)){ 
