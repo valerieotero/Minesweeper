@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
-	private static final int GRID_X = 40;
-	private static final int GRID_Y = 30;
+	private static final int GRID_X = 50;
+	private static final int GRID_Y = 50;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 10;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
@@ -28,6 +28,7 @@ public class MyPanel extends JPanel {
 	public int totalFlags = 12;
 	public boolean playerWon = false;
 	public int totalMines = 12;
+	
 
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -254,7 +255,7 @@ public class MyPanel extends JPanel {
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {  
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				colorArray[x][y] = Color.DARK_GRAY;
+				colorArray[x][y] = Color.WHITE;
 			}
 		}
 		totalMines = 12;
