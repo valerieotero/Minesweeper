@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
-	private static final int GRID_X = 50;
-	private static final int GRID_Y = 50;
+	private static final int GRID_X = 40;
+	private static final int GRID_Y = 30;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 10;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
