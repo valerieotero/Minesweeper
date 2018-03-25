@@ -54,7 +54,7 @@ public class MyPanel extends JPanel {
 		}
 
 		//Start a New Game
-		NewGame();
+		StartGame();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -145,6 +145,7 @@ public class MyPanel extends JPanel {
 			if (adjacentMine[x][y] > 0 && hGrid[x][y] && mines[x][y] == 0){
 				cellSelect(x, y);
 			}
+			return;
 		}
 	}
 
@@ -234,7 +235,7 @@ public class MyPanel extends JPanel {
 	
 	
 	//Method to start a new game
-	public void NewGame() {
+	public void StartGame() {
 		boardReset();
 		randomMines();
 
@@ -289,9 +290,9 @@ public class MyPanel extends JPanel {
 	
     //Method for flags
 	public void flags(int x, int y) {
-		if(colorArray[x][y] != Color.WHITE){
+		if(colorArray[x][y] != Color.DARK_GRAY){
 			if((colorArray[x][y] == Color.RED)){
-				colorArray[x][y] = Color.DARK_GRAY;
+				colorArray[x][y] = Color.WHITE;
 				repaint();
 				totalFlags++;
 			}else if(colorArray[x][y] != Color.RED && hGrid[x][y] == true){
@@ -375,7 +376,7 @@ public class MyPanel extends JPanel {
 		int button = JOptionPane.showConfirmDialog(null, "Won, You Have. Play Again, Will You?", null, JOptionPane.YES_NO_OPTION);
 		if(button == JOptionPane.YES_OPTION) {
 			boardReset();
-			NewGame();
+			StartGame();
 		}
 		else {
 			System.exit(0);
@@ -389,7 +390,7 @@ public class MyPanel extends JPanel {
 		int theButtonPressed = JOptionPane.showConfirmDialog(null, "Lost, You Have. Play Again, Will You?", null, JOptionPane.YES_NO_OPTION);
 		if(theButtonPressed == JOptionPane.YES_OPTION) {
 			boardReset();
-			NewGame();
+			StartGame();
 		}
 		else {
 			System.exit(0);
