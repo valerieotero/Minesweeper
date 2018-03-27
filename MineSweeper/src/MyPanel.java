@@ -21,14 +21,14 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 
-	// New instance variables 
+	// New Global variables 
 	public static final int MINES = -1;
-	public int [][] adjacentMine = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	public boolean [][] hGrid = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
-	public int [][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	public int totalFlags = 12;
-	public boolean playerWon = false;
-	public int totalMines = 12;
+	public static int [][] adjacentMine = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public static boolean [][] hGrid = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	public static int [][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public static int totalFlags = 12;
+	public static boolean playerWon = false;
+	public static int totalMines = 12;
 	
 
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
