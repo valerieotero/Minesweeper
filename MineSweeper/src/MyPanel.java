@@ -295,7 +295,7 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 				repaint();
 				totalFlags++;
-			}else if(colorArray[x][y] != Color.RED && hGrid[x][y] == true){
+			}else if(colorArray[x][y] != Color.RED && hGrid[x][y] == true && totalFlags > 0){
 				//put the flag
 				colorArray[x][y]=Color.RED;
 				repaint();
